@@ -25,7 +25,7 @@ body {
 h1,
 h2,
 h3 {
-  font-family: "Clash Display", "Manrope", system-ui, sans-serif;
+  font-family: "Sora", "Manrope", system-ui, sans-serif;
   margin: 0 0 16px;
 }
 
@@ -251,6 +251,68 @@ button.ghost {
   border: 1px solid rgba(11, 15, 26, 0.06);
 }
 
+.graph-wrap {
+  margin-top: 18px;
+  border-radius: 18px;
+  padding: 16px;
+  background: #f7f9ff;
+  border: 1px solid rgba(11, 15, 26, 0.06);
+}
+
+.graph-title {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--muted);
+  margin-bottom: 10px;
+}
+
+.system-graph {
+  width: 100%;
+  height: auto;
+}
+
+.system-graph .links path {
+  fill: none;
+  stroke: url(#glow);
+  stroke-width: 2;
+  stroke-dasharray: 8 12;
+  animation: dash 4s linear infinite;
+  opacity: 0.8;
+}
+
+.system-graph .nodes circle {
+  fill: #ffffff;
+  stroke: #6f5bff;
+  stroke-width: 3;
+  filter: drop-shadow(0 0 8px rgba(111, 91, 255, 0.35));
+  animation: pulse 3s ease-in-out infinite;
+}
+
+.system-graph .nodes circle:nth-child(2) {
+  animation-delay: -0.5s;
+}
+
+.system-graph .nodes circle:nth-child(3) {
+  animation-delay: -1s;
+}
+
+.system-graph .nodes circle:nth-child(4) {
+  animation-delay: -1.5s;
+}
+
+.system-graph .nodes circle:nth-child(5) {
+  animation-delay: -2s;
+}
+
+.system-graph .nodes circle:nth-child(6) {
+  animation-delay: -2.5s;
+}
+
+.system-graph .nodes circle:nth-child(7) {
+  animation-delay: -3s;
+}
+
 .hologram {
   position: absolute;
   inset: -40px;
@@ -379,6 +441,37 @@ button.ghost {
   border: 1px solid var(--line);
 }
 
+.carousel {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  gap: 16px;
+  align-items: center;
+}
+
+.carousel-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1px solid var(--line);
+  background: white;
+  font-size: 20px;
+}
+
+.carousel-track {
+  display: flex;
+  gap: 20px;
+  transition: transform 0.4s ease;
+  overflow: hidden;
+}
+
+.carousel-card {
+  min-width: 240px;
+  background: white;
+  border-radius: 18px;
+  padding: 16px;
+  border: 1px solid var(--line);
+}
+
 .contact {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -416,6 +509,17 @@ textarea {
   gap: 20px;
 }
 
+.reveal {
+  opacity: 0;
+  transform: translateY(30px);
+  transition: all 0.8s ease;
+}
+
+.reveal-in {
+  opacity: 1;
+  transform: translateY(0);
+}
+
 @keyframes spin {
   from {
     transform: rotate(0deg);
@@ -432,6 +536,25 @@ textarea {
   }
   50% {
     transform: translateY(30px);
+  }
+}
+
+@keyframes dash {
+  from {
+    stroke-dashoffset: 0;
+  }
+  to {
+    stroke-dashoffset: 40;
+  }
+}
+
+@keyframes pulse {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.15);
   }
 }
 
@@ -458,6 +581,14 @@ textarea {
 
   .impact-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .carousel {
+    grid-template-columns: 1fr;
+  }
+
+  .carousel-btn {
+    justify-self: center;
   }
 }
 

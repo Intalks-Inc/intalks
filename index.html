@@ -7,7 +7,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
-      href="https://fonts.googleapis.com/css2?family=Clash+Display:wght@400;600;700&family=Manrope:wght@300;400;500;600&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600&family=Sora:wght@500;600;700&display=swap"
       rel="stylesheet"
     />
     <link rel="stylesheet" href="styles.css" />
@@ -28,6 +28,7 @@
         <a href="#platform">Platform</a>
         <a href="#capabilities">Capabilities</a>
         <a href="#impact">Impact</a>
+        <a href="#stories">Stories</a>
         <a href="#contact">Contact</a>
       </nav>
       <div class="nav-cta">
@@ -37,7 +38,7 @@
     </header>
 
     <main class="hero">
-      <section class="hero-left">
+      <section class="hero-left reveal">
         <div class="pill">AI Systems Thinking • Sustainability OS</div>
         <h1>
           Design for the planet
@@ -68,7 +69,7 @@
         </div>
       </section>
 
-      <section class="hero-right">
+      <section class="hero-right reveal">
         <div class="dashboard">
           <div class="dash-header">
             <span>Systems Intelligence</span>
@@ -92,6 +93,33 @@
               <p>Operational playbooks with adaptive monitoring.</p>
             </article>
           </div>
+          <div class="graph-wrap">
+            <div class="graph-title">Animated Systems Graph</div>
+            <svg viewBox="0 0 520 240" class="system-graph" aria-label="Systems graph">
+              <defs>
+                <linearGradient id="glow" x1="0" x2="1" y1="0" y2="1">
+                  <stop offset="0%" stop-color="#6f5bff" />
+                  <stop offset="100%" stop-color="#12d6c8" />
+                </linearGradient>
+              </defs>
+              <g class="links">
+                <path d="M80 60 C160 20, 240 20, 320 70" />
+                <path d="M80 140 C160 180, 260 180, 360 120" />
+                <path d="M200 60 C220 120, 220 140, 200 200" />
+                <path d="M320 70 C380 90, 430 130, 440 190" />
+                <path d="M360 120 C280 140, 220 150, 140 180" />
+              </g>
+              <g class="nodes">
+                <circle cx="80" cy="60" r="18" />
+                <circle cx="200" cy="60" r="12" />
+                <circle cx="320" cy="70" r="16" />
+                <circle cx="80" cy="140" r="14" />
+                <circle cx="200" cy="200" r="10" />
+                <circle cx="360" cy="120" r="12" />
+                <circle cx="440" cy="190" r="14" />
+              </g>
+            </svg>
+          </div>
         </div>
         <div class="hologram">
           <div class="ring"></div>
@@ -101,7 +129,7 @@
       </section>
     </main>
 
-    <section id="platform" class="section split">
+    <section id="platform" class="section split reveal">
       <div>
         <h2>Platform built for planetary systems</h2>
         <p>
@@ -135,7 +163,7 @@
       </div>
     </section>
 
-    <section id="capabilities" class="section">
+    <section id="capabilities" class="section reveal">
       <div class="section-head">
         <h2>Capabilities for systems-scale change</h2>
         <p>Make decisions with multi-layer intelligence, not isolated signals.</p>
@@ -168,7 +196,7 @@
       </div>
     </section>
 
-    <section id="impact" class="section impact">
+    <section id="impact" class="section impact reveal">
       <div>
         <h2>Impact you can operationalize</h2>
         <p>
@@ -196,7 +224,36 @@
       </div>
     </section>
 
-    <section id="contact" class="section contact">
+    <section id="stories" class="section reveal">
+      <div class="section-head">
+        <h2>Stories from the field</h2>
+        <p>Minimal, outcome-first project snapshots.</p>
+      </div>
+      <div class="carousel">
+        <button class="carousel-btn" data-dir="prev">‹</button>
+        <div class="carousel-track">
+          <article class="carousel-card">
+            <h3>Coastal Resilience</h3>
+            <p>Mapped flood risk and optimized adaptation investments.</p>
+          </article>
+          <article class="carousel-card">
+            <h3>Circular Supply</h3>
+            <p>Identified closed-loop opportunities across manufacturing.</p>
+          </article>
+          <article class="carousel-card">
+            <h3>Energy Equity</h3>
+            <p>Simulated policy impacts on community microgrids.</p>
+          </article>
+          <article class="carousel-card">
+            <h3>Water Futures</h3>
+            <p>Forecasted watershed stress with multi-stakeholder models.</p>
+          </article>
+        </div>
+        <button class="carousel-btn" data-dir="next">›</button>
+      </div>
+    </section>
+
+    <section id="contact" class="section contact reveal">
       <div>
         <h2>Let’s design sustainable futures</h2>
         <p>
@@ -225,5 +282,42 @@
         <span>Press</span>
       </div>
     </footer>
+
+    <script>
+      const revealEls = document.querySelectorAll(".reveal");
+      const revealObserver = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add("reveal-in");
+            }
+          });
+        },
+        { threshold: 0.15 }
+      );
+      revealEls.forEach((el) => revealObserver.observe(el));
+
+      const track = document.querySelector(".carousel-track");
+      const buttons = document.querySelectorAll(".carousel-btn");
+      let index = 0;
+
+      const updateCarousel = () => {
+        if (!track) return;
+        const cardWidth = track.querySelector(".carousel-card")?.getBoundingClientRect().width || 0;
+        track.style.transform = `translateX(${-index * (cardWidth + 20)}px)`;
+      };
+
+      buttons.forEach((btn) => {
+        btn.addEventListener("click", () => {
+          const dir = btn.getAttribute("data-dir");
+          const max = track ? track.children.length - 1 : 0;
+          if (dir === "next") index = Math.min(index + 1, max);
+          if (dir === "prev") index = Math.max(index - 1, 0);
+          updateCarousel();
+        });
+      });
+
+      window.addEventListener("resize", updateCarousel);
+    </script>
   </body>
 </html>
