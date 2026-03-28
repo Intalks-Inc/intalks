@@ -13,6 +13,17 @@
     <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
+    <div class="intro-sheen"></div>
+
+    <div class="systems-bg" aria-hidden="true">
+      <div class="map-layer" data-depth="0.25"></div>
+      <div class="map-layer" data-depth="0.4"></div>
+      <div class="map-layer" data-depth="0.6"></div>
+      <div class="map-nodes" data-depth="0.8">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+      </div>
+    </div>
+
     <div class="ambient">
       <span></span>
       <span></span>
@@ -229,7 +240,7 @@
         <h2>Stories from the field</h2>
         <p>Minimal, outcome-first project snapshots.</p>
       </div>
-      <div class="carousel">
+      <div class="carousel" data-autoplay>
         <button class="carousel-btn" data-dir="prev">‹</button>
         <div class="carousel-track">
           <article class="carousel-card">
@@ -297,14 +308,34 @@
       );
       revealEls.forEach((el) => revealObserver.observe(el));
 
-      const track = document.querySelector(".carousel-track");
-      const buttons = document.querySelectorAll(".carousel-btn");
+      const carousel = document.querySelector(".carousel");
+      const track = carousel?.querySelector(".carousel-track");
+      const buttons = carousel?.querySelectorAll(".carousel-btn") || [];
       let index = 0;
+      let autoplayId = null;
 
       const updateCarousel = () => {
         if (!track) return;
         const cardWidth = track.querySelector(".carousel-card")?.getBoundingClientRect().width || 0;
         track.style.transform = `translateX(${-index * (cardWidth + 20)}px)`;
+      };
+
+      const nextSlide = () => {
+        if (!track) return;
+        const max = track.children.length - 1;
+        index = index >= max ? 0 : index + 1;
+        updateCarousel();
+      };
+
+      const startAutoplay = () => {
+        if (autoplayId) return;
+        autoplayId = setInterval(nextSlide, 3200);
+      };
+
+      const stopAutoplay = () => {
+        if (!autoplayId) return;
+        clearInterval(autoplayId);
+        autoplayId = null;
       };
 
       buttons.forEach((btn) => {
@@ -317,7 +348,26 @@
         });
       });
 
+      carousel?.addEventListener("mouseenter", stopAutoplay);
+      carousel?.addEventListener("mouseleave", startAutoplay);
       window.addEventListener("resize", updateCarousel);
+      startAutoplay();
+
+      const mapLayers = document.querySelectorAll(".systems-bg [data-depth]");
+      window.addEventListener("mousemove", (event) => {
+        const x = (event.clientX / window.innerWidth - 0.5) * 20;
+        const y = (event.clientY / window.innerHeight - 0.5) * 20;
+        mapLayers.forEach((layer) => {
+          const depth = Number(layer.getAttribute("data-depth")) || 0.3;
+          const translateX = x * depth;
+          const translateY = y * depth;
+          (layer as HTMLElement).style.transform = `translate(${translateX}px, ${translateY}px)`;
+        });
+      });
+
+      window.addEventListener("load", () => {
+        document.body.classList.add("loaded");
+      });
     </script>
   </body>
 </html>

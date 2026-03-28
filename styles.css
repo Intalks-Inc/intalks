@@ -20,6 +20,14 @@ body {
   background: radial-gradient(circle at top left, #ffffff 0%, #f1f3ff 45%, #ecfdfb 100%);
   color: var(--ink);
   overflow-x: hidden;
+  opacity: 0;
+  transform: translateY(12px);
+  transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+body.loaded {
+  opacity: 1;
+  transform: translateY(0);
 }
 
 h1,
@@ -32,6 +40,16 @@ h3 {
 p {
   margin: 0 0 16px;
   line-height: 1.6;
+}
+
+.intro-sheen {
+  position: fixed;
+  inset: 0;
+  background: radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.9), transparent 50%);
+  opacity: 0;
+  pointer-events: none;
+  z-index: 0;
+  animation: intro 1.4s ease forwards;
 }
 
 .ambient {
@@ -69,6 +87,73 @@ p {
   bottom: -140px;
   left: 30%;
   animation-delay: -8s;
+}
+
+.systems-bg {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.map-layer {
+  position: absolute;
+  inset: -10% -10% 0;
+  background: radial-gradient(circle at 30% 40%, rgba(111, 91, 255, 0.15), transparent 50%),
+    radial-gradient(circle at 70% 20%, rgba(18, 214, 200, 0.15), transparent 50%),
+    radial-gradient(circle at 60% 70%, rgba(255, 179, 71, 0.15), transparent 50%);
+  opacity: 0.6;
+}
+
+.map-nodes {
+  position: absolute;
+  inset: 0;
+}
+
+.map-nodes span {
+  position: absolute;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: linear-gradient(120deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 12px rgba(111, 91, 255, 0.5);
+  animation: pulse 4s ease-in-out infinite;
+}
+
+.map-nodes span:nth-child(1) {
+  top: 20%;
+  left: 15%;
+}
+
+.map-nodes span:nth-child(2) {
+  top: 40%;
+  left: 70%;
+  animation-delay: -1s;
+}
+
+.map-nodes span:nth-child(3) {
+  top: 70%;
+  left: 35%;
+  animation-delay: -2s;
+}
+
+.map-nodes span:nth-child(4) {
+  top: 15%;
+  left: 55%;
+  animation-delay: -3s;
+}
+
+.map-nodes span:nth-child(5) {
+  top: 60%;
+  left: 85%;
+  animation-delay: -1.5s;
+}
+
+.map-nodes span:nth-child(6) {
+  top: 80%;
+  left: 10%;
+  animation-delay: -2.5s;
 }
 
 .nav,
@@ -518,6 +603,15 @@ textarea {
 .reveal-in {
   opacity: 1;
   transform: translateY(0);
+}
+
+@keyframes intro {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
 }
 
 @keyframes spin {
