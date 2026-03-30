@@ -15,15 +15,6 @@
   <body>
     <div class="intro-sheen"></div>
 
-    <div class="systems-bg" aria-hidden="true">
-      <div class="map-layer" data-depth="0.25"></div>
-      <div class="map-layer" data-depth="0.4"></div>
-      <div class="map-layer" data-depth="0.6"></div>
-      <div class="map-nodes" data-depth="0.8">
-        <span></span><span></span><span></span><span></span><span></span><span></span>
-      </div>
-    </div>
-
     <div class="ambient">
       <span></span>
       <span></span>
@@ -131,11 +122,6 @@
               </g>
             </svg>
           </div>
-        </div>
-        <div class="hologram">
-          <div class="ring"></div>
-          <div class="ring"></div>
-          <div class="ring"></div>
         </div>
       </section>
     </main>
@@ -353,21 +339,6 @@
       window.addEventListener("resize", updateCarousel);
       startAutoplay();
 
-      const mapLayers = document.querySelectorAll(".systems-bg [data-depth]");
-      window.addEventListener("mousemove", (event) => {
-        const x = (event.clientX / window.innerWidth - 0.5) * 20;
-        const y = (event.clientY / window.innerHeight - 0.5) * 20;
-        mapLayers.forEach((layer) => {
-          const depth = Number(layer.getAttribute("data-depth")) || 0.3;
-          const translateX = x * depth;
-          const translateY = y * depth;
-          (layer as HTMLElement).style.transform = `translate(${translateX}px, ${translateY}px)`;
-        });
-      });
-
-      window.addEventListener("load", () => {
-        document.body.classList.add("loaded");
-      });
     </script>
   </body>
 </html>
