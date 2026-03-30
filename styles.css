@@ -92,12 +92,11 @@ p {
 .map-layer {
   position: absolute;
   inset: -10% -10% 0;
-  background: radial-gradient(circle at 30% 40%, rgba(111, 91, 255, 0.15), transparent 50%),
-    radial-gradient(circle at 70% 20%, rgba(18, 214, 200, 0.15), transparent 50%),
-    radial-gradient(circle at 60% 70%, rgba(255, 179, 71, 0.15), transparent 50%);
+  background: radial-gradient(circle at 30% 40%, rgba(111, 91, 255, 0.14), transparent 50%),
+    radial-gradient(circle at 70% 20%, rgba(18, 214, 200, 0.14), transparent 50%),
+    radial-gradient(circle at 60% 70%, rgba(255, 179, 71, 0.14), transparent 50%);
   opacity: 0.45;
 }
-
 
 .nav,
 .hero,
@@ -114,7 +113,7 @@ p {
   align-items: center;
   justify-content: space-between;
   padding: 16px 24px;
-  background: rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.92);
   border: 1px solid var(--line);
   border-radius: 999px;
   box-shadow: var(--shadow);
@@ -279,69 +278,6 @@ button.ghost {
   border: 1px solid rgba(11, 15, 26, 0.06);
 }
 
-.graph-wrap {
-  margin-top: 18px;
-  border-radius: 18px;
-  padding: 16px;
-  background: #f7f9ff;
-  border: 1px solid rgba(11, 15, 26, 0.06);
-}
-
-.graph-title {
-  font-size: 12px;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--muted);
-  margin-bottom: 10px;
-}
-
-.system-graph {
-  width: 100%;
-  height: auto;
-}
-
-.system-graph .links path {
-  fill: none;
-  stroke: url(#glow);
-  stroke-width: 2;
-  stroke-dasharray: 8 12;
-  animation: dash 4s linear infinite;
-  opacity: 0.8;
-}
-
-.system-graph .nodes circle {
-  fill: #ffffff;
-  stroke: #6f5bff;
-  stroke-width: 3;
-  filter: drop-shadow(0 0 8px rgba(111, 91, 255, 0.35));
-  animation: pulse 3s ease-in-out infinite;
-}
-
-.system-graph .nodes circle:nth-child(2) {
-  animation-delay: -0.5s;
-}
-
-.system-graph .nodes circle:nth-child(3) {
-  animation-delay: -1s;
-}
-
-.system-graph .nodes circle:nth-child(4) {
-  animation-delay: -1.5s;
-}
-
-.system-graph .nodes circle:nth-child(5) {
-  animation-delay: -2s;
-}
-
-.system-graph .nodes circle:nth-child(6) {
-  animation-delay: -2.5s;
-}
-
-.system-graph .nodes circle:nth-child(7) {
-  animation-delay: -3s;
-}
-
-
 .section {
   max-width: 1180px;
   margin: 90px auto 0;
@@ -457,11 +393,15 @@ button.ghost {
   font-size: 20px;
 }
 
+.carousel-viewport {
+  overflow: hidden;
+}
+
 .carousel-track {
   display: flex;
   gap: 20px;
-  transition: transform 0.4s ease;
-  overflow: hidden;
+  padding: 8px 4px 8px 0;
+  scroll-behavior: smooth;
 }
 
 .carousel-card {
@@ -470,6 +410,7 @@ button.ghost {
   border-radius: 18px;
   padding: 16px;
   border: 1px solid var(--line);
+  box-shadow: 0 12px 24px rgba(72, 55, 255, 0.08);
 }
 
 .contact {
@@ -529,15 +470,6 @@ textarea {
   }
 }
 
-@keyframes spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
-
 @keyframes float {
   0%,
   100% {
@@ -545,15 +477,6 @@ textarea {
   }
   50% {
     transform: translateY(30px);
-  }
-}
-
-@keyframes dash {
-  from {
-    stroke-dashoffset: 0;
-  }
-  to {
-    stroke-dashoffset: 40;
   }
 }
 

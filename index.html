@@ -59,7 +59,6 @@
         </p>
         <div class="hero-actions">
           <button class="primary">Explore the platform</button>
-          <button class="ghost">View demo flow</button>
         </div>
         <div class="hero-tiles">
           <div>
@@ -100,33 +99,6 @@
               <h3>Field Ops</h3>
               <p>Operational playbooks with adaptive monitoring.</p>
             </article>
-          </div>
-          <div class="graph-wrap">
-            <div class="graph-title">Animated Systems Graph</div>
-            <svg viewBox="0 0 520 240" class="system-graph" aria-label="Systems graph">
-              <defs>
-                <linearGradient id="glow" x1="0" x2="1" y1="0" y2="1">
-                  <stop offset="0%" stop-color="#6f5bff" />
-                  <stop offset="100%" stop-color="#12d6c8" />
-                </linearGradient>
-              </defs>
-              <g class="links">
-                <path d="M80 60 C160 20, 240 20, 320 70" />
-                <path d="M80 140 C160 180, 260 180, 360 120" />
-                <path d="M200 60 C220 120, 220 140, 200 200" />
-                <path d="M320 70 C380 90, 430 130, 440 190" />
-                <path d="M360 120 C280 140, 220 150, 140 180" />
-              </g>
-              <g class="nodes">
-                <circle cx="80" cy="60" r="18" />
-                <circle cx="200" cy="60" r="12" />
-                <circle cx="320" cy="70" r="16" />
-                <circle cx="80" cy="140" r="14" />
-                <circle cx="200" cy="200" r="10" />
-                <circle cx="360" cy="120" r="12" />
-                <circle cx="440" cy="190" r="14" />
-              </g>
-            </svg>
           </div>
         </div>
       </section>
@@ -234,23 +206,25 @@
       </div>
       <div class="carousel" data-autoplay>
         <button class="carousel-btn" data-dir="prev">‹</button>
-        <div class="carousel-track">
-          <article class="carousel-card">
-            <h3>Coastal Resilience</h3>
-            <p>Mapped flood risk and optimized adaptation investments.</p>
-          </article>
-          <article class="carousel-card">
-            <h3>Circular Supply</h3>
-            <p>Identified closed-loop opportunities across manufacturing.</p>
-          </article>
-          <article class="carousel-card">
-            <h3>Energy Equity</h3>
-            <p>Simulated policy impacts on community microgrids.</p>
-          </article>
-          <article class="carousel-card">
-            <h3>Water Futures</h3>
-            <p>Forecasted watershed stress with multi-stakeholder models.</p>
-          </article>
+        <div class="carousel-viewport">
+          <div class="carousel-track">
+            <article class="carousel-card">
+              <h3>Coastal Resilience</h3>
+              <p>Mapped flood risk and optimized adaptation investments.</p>
+            </article>
+            <article class="carousel-card">
+              <h3>Circular Supply</h3>
+              <p>Identified closed-loop opportunities across manufacturing.</p>
+            </article>
+            <article class="carousel-card">
+              <h3>Energy Equity</h3>
+              <p>Simulated policy impacts on community microgrids.</p>
+            </article>
+            <article class="carousel-card">
+              <h3>Water Futures</h3>
+              <p>Forecasted watershed stress with multi-stakeholder models.</p>
+            </article>
+          </div>
         </div>
         <button class="carousel-btn" data-dir="next">›</button>
       </div>
@@ -301,27 +275,28 @@
       revealEls.forEach((el) => revealObserver.observe(el));
 
       const carousel = document.querySelector(".carousel");
+      const viewport = carousel?.querySelector(".carousel-viewport");
       const track = carousel?.querySelector(".carousel-track");
       const buttons = carousel?.querySelectorAll(".carousel-btn") || [];
-      let index = 0;
       let autoplayId = null;
 
-      const updateCarousel = () => {
-        if (!track) return;
-        const cardWidth = track.querySelector(".carousel-card")?.getBoundingClientRect().width || 0;
-        track.style.transform = `translateX(${-index * (cardWidth + 20)}px)`;
+      const getStep = () => {
+        const card = track?.querySelector(".carousel-card");
+        if (!card) return 0;
+        const style = window.getComputedStyle(track);
+        const gap = Number(style.columnGap || style.gap || "20px".replace("px", ""));
+        return card.getBoundingClientRect().width + gap;
       };
 
-      const nextSlide = () => {
-        if (!track) return;
-        const max = track.children.length - 1;
-        index = index >= max ? 0 : index + 1;
-        updateCarousel();
+      const scrollByStep = (dir) => {
+        if (!viewport) return;
+        const step = getStep();
+        viewport.scrollBy({ left: dir * step, behavior: "smooth" });
       };
 
       const startAutoplay = () => {
         if (autoplayId) return;
-        autoplayId = setInterval(nextSlide, 3200);
+        autoplayId = setInterval(() => scrollByStep(1), 3200);
       };
 
       const stopAutoplay = () => {
@@ -332,17 +307,14 @@
 
       buttons.forEach((btn) => {
         btn.addEventListener("click", () => {
-          const dir = btn.getAttribute("data-dir");
-          const max = track ? track.children.length - 1 : 0;
-          if (dir === "next") index = Math.min(index + 1, max);
-          if (dir === "prev") index = Math.max(index - 1, 0);
-          updateCarousel();
+          const dir = btn.getAttribute("data-dir") === "next" ? 1 : -1;
+          scrollByStep(dir);
         });
       });
 
       carousel?.addEventListener("mouseenter", stopAutoplay);
       carousel?.addEventListener("mouseleave", startAutoplay);
-      window.addEventListener("resize", updateCarousel);
+      window.addEventListener("resize", () => viewport?.scrollTo({ left: 0 }));
       startAutoplay();
 
       const mapLayers = document.querySelectorAll(".systems-bg [data-depth]");
@@ -356,7 +328,6 @@
           layer.style.transform = `translate(${translateX}px, ${translateY}px)`;
         });
       });
-
     </script>
   </body>
 </html>
