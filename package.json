@@ -1,0 +1,61 @@
+{
+  "name": "intalks-inc-site",
+  "version": "1.0.0",
+  "description": "**Not a news feed.** A diffusion tracker for how research narratives travel across universities, corporate labs, and preprints.",
+  "main": "app.js",
+  "type": "module",
+  "scripts": {
+    "dev": "npx serve .",
+    "build": "node build/optimize.js && node build/bundle-css.js && node build/finalize-html.js",
+    "build:js": "node build/optimize.js",
+    "build:css": "node build/bundle-css.js",
+    "build:html": "node build/finalize-html.js",
+    "lint": "eslint app.js *.js --ignore-pattern '*.min.js'",
+    "lint:fix": "eslint app.js *.js --ignore-pattern '*.min.js' --fix",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "clean": "rm -rf dist/*.min.*",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Intalks-Inc/intalks.git"
+  },
+  "keywords": [
+    "research",
+    "narrative",
+    "intelligence",
+    "diffusion",
+    "tracking",
+    "universities",
+    "labs",
+    "preprints"
+  ],
+  "author": "Intalks Inc",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Intalks-Inc/intalks/issues"
+  },
+  "homepage": "https://github.com/Intalks-Inc/intalks#readme",
+  "dependencies": {
+    "clean-css": "^5.3.3",
+    "terser": "^5.31.1"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "eslint": "^9.0.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.0",
+    "prettier": "^3.0.0",
+    "serve": "^14.2.1"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not op_mini all",
+    "not ie 11"
+  ]
+}

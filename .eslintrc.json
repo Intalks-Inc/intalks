@@ -1,0 +1,74 @@
+{
+  "env": {
+    "browser": true,
+    "es2021": true,
+    "node": true
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:prettier/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2021,
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": false
+    }
+  },
+  "globals": {
+    "ENTITIES": "readonly",
+    "UNIVERSITIES": "readonly",
+    "COMPANIES": "readonly",
+    "STARTUPS": "readonly",
+    "SP500": "readonly",
+    "LABS": "readonly",
+    "MOOCS": "readonly",
+    "SEED_NEWS": "readonly",
+    "LIVE_NEWS": "readonly",
+    "activeTab": "writable",
+    "ITK_ACT": "writable"
+  },
+  "rules": {
+    "no-console": ["warn", { "allow": ["warn", "error"] }],
+    "no-unused-vars": ["warn", { "argsIgnorePattern": "^_" }],
+    "prefer-const": "error",
+    "no-var": "error",
+    "eqeqeq": ["error", "always"],
+    "strict": ["error", "global"],
+    "no-implied-eval": "error",
+    "no-eval": "warn",
+    "guard-for-in": "error",
+    "no-caller": "error",
+    "no-extend-native": "error",
+    "no-extra-bind": "error",
+    "no-implicit-globals": "off",
+    "no-invalid-this": "off",
+    "no-iterator-return": "error",
+    "no-lone-blocks": "error",
+    "no-loop-func": "error",
+    "no-magic-numbers": "off",
+    "no-multi-str": "error",
+    "no-new": "error",
+    "no-new-func": "error",
+    "no-new-wrappers": "error",
+    "no-octal-escape": "error",
+    "no-proto": "error",
+    "no-redeclare": "error",
+    "no-return-assign": "error",
+    "no-script-url": "error",
+    "no-self-compare": "error",
+    "no-sequences": "error",
+    "no-throw-literal": "error",
+    "no-unmodified-loop-condition": "error",
+    "no-unreachable": "error",
+    "no-unused-expressions": "off",
+    "no-useless-call": "error",
+    "no-useless-concat": "error",
+    "no-useless-escape": "error",
+    "no-useless-return": "error",
+    "no-void": "off",
+    "no-with": "error",
+    "require-await": "off",
+    "yoda": ["error", "never"]
+  }
+}
